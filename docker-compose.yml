@@ -1,0 +1,113 @@
+services:
+
+  nginx:
+    image: nginx:latest
+    container_name: laravel_nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx:/etc/nginx/conf.d
+    depends_on:
+      - app
+    networks:
+      - starFlow
+
+  app:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: laravel_app
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - starFlow
+
+  queue:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: laravel_queue
+    working_dir: /var/www
+    command: php artisan queue:work --sleep=3 --tries=3
+    volumes:
+      - ./:/var/www
+    depends_on:
+      - app
+      - redis
+    networks:
+      - starFlow
+
+  scheduler:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: laravel_scheduler
+    working_dir: /var/www
+    command: sh -c "while true; do php artisan schedule:run; sleep 60; done"
+    volumes:
+      - ./:/var/www
+    depends_on:
+      - app
+    networks:
+      - starFlow
+
+  postgres:
+    image: postgres:16
+    container_name: laravel_postgres
+    environment:
+      POSTGRES_DB: starFlow
+      POSTGRES_USER: starFlow
+      POSTGRES_PASSWORD: starFlow
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - starFlow
+
+  redis:
+    image: redis:7
+    container_name: laravel_redis
+    ports:
+      - "6379:6379"
+    networks:
+      - starFlow
+
+  node:
+    image: node:20
+    container_name: laravel_node
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+    command: tail -f /dev/null
+    networks:
+      - starFlow
+
+  adminer:
+    image: adminer
+    container_name: laravel_adminer
+    ports:
+      - "8081:8080"
+    depends_on:
+      - postgres
+    networks:
+      - starFlow
+
+  redisinsight:
+    image: redis/redisinsight:latest
+    container_name: laravel_redisinsight
+    ports:
+      - "5540:5540"
+    networks:
+      - starFlow
+
+networks:
+  starFlow:
+
+volumes:
+  postgres_data:
