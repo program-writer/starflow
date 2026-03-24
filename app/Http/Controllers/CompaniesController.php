@@ -16,4 +16,15 @@ class CompaniesController extends Controller
             ],
         ]);
     }
+
+    public function show($id)
+    {
+        $company = Company::where('id', $id)->firstOrFail();
+
+        return response()->json([
+            'data' => [
+                'company' => $company,
+            ],
+        ]);
+    }
 }
