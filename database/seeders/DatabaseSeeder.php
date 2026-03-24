@@ -16,6 +16,6 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(CompanySeeder::class);
 
-        echo 'All seeders finished successfully!' . PHP_EOL;
+        echo 'All seeders finished successfully!'.PHP_EOL;
     }
 }

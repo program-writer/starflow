@@ -47,7 +47,7 @@ class CompanySeeder extends Seeder
                 'cashback_level' => '3%',
             ],
 
-            //Personal Shops
+            // Personal Shops
             [
                 'title' => 'CHANEL',
                 'image' => 'prepared_companies_images/chanel.png',
