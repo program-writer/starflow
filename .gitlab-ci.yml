@@ -15,6 +15,10 @@ test:
     - echo "Installing dependencies..."
     - composer install --prefer-dist --no-interaction
 
+    - echo "Preparing environment..."
+    - cp .env.example .env
+    - php artisan key:generate
+
     - echo "Running tests..."
     - ./vendor/bin/phpunit --colors=always
 
