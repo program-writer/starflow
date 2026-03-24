@@ -37,7 +37,7 @@ deploy:
 
     - ssh root@64.226.76.97 "
       cd /var/www/starflow &&
-      git pull origin master &&
+      git pull origin main &&
       composer install --no-interaction --optimize-autoloader &&
       php artisan optimize &&
       php artisan config:cache &&
@@ -45,5 +45,5 @@ deploy:
       "
 
   rules:
-    # запускать только после merge в master
-    - if: $CI_COMMIT_BRANCH == "master"
+    # запускать только после merge в main
+    - if: $CI_COMMIT_BRANCH == "main"
