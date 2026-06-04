@@ -7,3 +7,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/companies', [CompaniesController::class, 'index']);
+Route::get('/company/{id}', [CompaniesController::class, 'show']);
