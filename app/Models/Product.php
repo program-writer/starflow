@@ -4,16 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Company extends Model
+class Product extends Model
 {
     public $timestamps = false;
     protected $fillable = [
         'title',
+        'category_id',
+        'price',
         'slug',
-        'email',
-        'phone',
-        'address',
-        'is_verified',
+        'sku',
+        'company_id',
+        'is_published',
         'is_activated',
+        'views',
     ];
 }

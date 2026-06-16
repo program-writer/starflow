@@ -14,20 +14,12 @@ return new class extends Migration
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('image')->nullable();
             $table->string('slug')->nullable();
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->text('description')->nullable();
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
-            $table->string('business_address')->nullable();
-            $table->unsignedInteger('country_id')->nullable();
+            $table->string('address')->nullable();
             $table->boolean('is_verified')->default(false);
             $table->boolean('is_activated')->default(false);
-            $table->boolean('has_custom_design')->default(false);
-            $table->string('rating')->nullable();
-            $table->string('cashback_level')->nullable();
-            $table->timestamps();
         });
     }
 

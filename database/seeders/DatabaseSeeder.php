@@ -9,13 +9,13 @@ class DatabaseSeeder extends Seeder
 {
     use WithoutModelEvents;
 
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
+        echo 'Seeding started, please wait...' . PHP_EOL . PHP_EOL;
         $this->call(CompanySeeder::class);
-
-        echo 'All seeders finished successfully!'.PHP_EOL;
+        $this->call(PeopleSeeder::class);
+        $this->call(CategorySeeder::class);
+        $this->call(ProductSeeder::class);
+        echo 'All seeders finished successfully!' . PHP_EOL;
     }
 }

@@ -4,16 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Company extends Model
+class People extends Model
 {
     public $timestamps = false;
     protected $fillable = [
-        'title',
-        'slug',
+        'first_name',
+        'last_name',
+        'country_code',
         'email',
-        'phone',
-        'address',
-        'is_verified',
-        'is_activated',
+        'birthday',
     ];
 }
