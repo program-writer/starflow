@@ -9,7 +9,7 @@ class CheckoutRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -18,20 +18,9 @@ class CheckoutRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'customer_email' => [
-                'required',
-                'email',
-            ],
-            'product_id' => [
-                'required',
-                'integer',
-                'exists:products,id',
-            ],
-            'quantity' => [
-                'required',
-                'integer',
-                'min:1',
-            ],
+            'customer_email' => ['required', 'email'],
+            'product_id' => ['required', 'integer', 'exists:products,id'],
+            'quantity' => ['required', 'integer', 'min:1'],
         ];
     }
 }

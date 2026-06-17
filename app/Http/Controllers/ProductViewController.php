@@ -3,13 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\IncrementProductViewsJob;
-use App\Models\Product;
 
 class ProductViewController extends Controller
 {
-    public function __invoke(Product $product)
+    public function incrementView(int $productId)
     {
-        IncrementProductViewsJob::dispatch($product->id);
+        IncrementProductViewsJob::dispatch($productId);
 
         return response()->json([
             'message' => 'queued',

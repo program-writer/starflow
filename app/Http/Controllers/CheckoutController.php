@@ -9,18 +9,12 @@ use Illuminate\Support\Str;
 
 class CheckoutController extends Controller
 {
-    public function __invoke(CheckoutRequest $request, CheckoutAction $action)
+    public function checkout(CheckoutRequest $request, CheckoutAction $action)
     {
         $dto = new CheckoutDto(
-            customerEmail: $request->string(
-                'customer_email'
-            )->toString(),
-            productId: $request->integer(
-                'product_id'
-            ),
-            quantity: $request->integer(
-                'quantity'
-            ),
+            customerEmail: $request->string('customer_email')->toString(),
+            productId: $request->integer('product_id'),
+            quantity: $request->integer('quantity'),
             idempotencyKey: (string) Str::uuid(),
         );
         $order = $action->handle($dto);

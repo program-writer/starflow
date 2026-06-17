@@ -14,11 +14,11 @@ class CheckoutAction
     {
         $product = Product::query()->findOrFail($dto->productId);
         $order = Order::create([
-                'customer_email' => $dto->customerEmail,
-                'amount' => $product->price * $dto->quantity,
-                'status' => 'pending',
-                'idempotency_key' => $dto->idempotencyKey,
-            ]);
+                    'customer_email' => $dto->customerEmail,
+                    'amount' => $product->price * $dto->quantity,
+                    'status' => 'pending',
+                    'idempotency_key' => $dto->idempotencyKey,
+                ]);
         ChargePaymentJob::dispatch($order->id)->onQueue('payments');
         CalculateShippingJob::dispatch($order->id)->onQueue('shipping');
 

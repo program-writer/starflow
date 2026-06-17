@@ -11,8 +11,14 @@ class CalculateShippingJob implements ShouldQueue
 {
     use Queueable;
 
-    public function __construct(public int $orderId)
-    {}
+    public int $tries = 3;
+
+    public function __construct(public int $orderId) {}
+
+    public function backoff(): array
+    {
+        return [10, 30, 60];
+    }
 
     public function handle(DeliveryGateway $gateway): void
     {

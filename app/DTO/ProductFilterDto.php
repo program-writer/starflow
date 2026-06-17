@@ -8,5 +8,6 @@ readonly class ProductFilterDto
         public ?int $categoryId,
         public int $perPage,
         public string $sort,
+        public int $page,
     ) {}
 }

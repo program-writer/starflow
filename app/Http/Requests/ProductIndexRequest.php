@@ -21,6 +21,7 @@ class ProductIndexRequest extends FormRequest
             'category_id' => ['nullable', 'integer'],
             'per_page' => ['nullable', 'integer', 'min:1', 'max:100'],
             'sort' => ['nullable', 'in:views,price'],
+            'page' => ['nullable'],
         ];
     }
 }

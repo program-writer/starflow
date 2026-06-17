@@ -12,8 +12,7 @@ class ChargePaymentJob implements ShouldQueue
     use Queueable;
     public int $tries = 3;
 
-    public function __construct(public int $orderId)
-    {}
+    public function __construct(public int $orderId) {}
 
     public function backoff(): array
     {

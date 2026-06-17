@@ -10,16 +10,16 @@ class SendOrderEmailJob implements ShouldQueue
 {
     use Queueable;
 
-    public function __construct(public int $orderId)
-    {}
+    public int $tries = 3;
+    public function __construct(public int $orderId) {}
+
+    public function backoff(): array
+    {
+        return [10, 30, 60];
+    }
 
     public function handle(): void
     {
-        Log::info(
-            'Email sent',
-            [
-                'order_id' => $this->orderId,
-            ]
-        );
+        Log::info('Email sent', ['order_id' => $this->orderId]);
     }
 }
